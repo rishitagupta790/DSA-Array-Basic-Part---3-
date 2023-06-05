@@ -1,38 +1,30 @@
 package com.in.P05;
 
-import java.util.Arrays;
-
 public class Array_05 {
-	public static int[] plusOne(int[] digits) {
-		int n = digits.length;
-		int carry = 1;
+	public static int arrangeCoins(int n) {
+		int left = 0;
+		int right = n;
 
-		for (int i = n - 1; i >= 0; i--) {
-			digits[i] += carry;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			long curr = (long) mid * (mid + 1) / 2;
 
-			if (digits[i] == 10) {
-				digits[i] = 0;
-				carry = 1;
+			if (curr == n) {
+				return mid;
+			} else if (curr < n) {
+				left = mid + 1;
 			} else {
-				carry = 0;
-				break;
+				right = mid - 1;
 			}
 		}
 
-		if (carry == 1) {
-			int[] result = new int[n + 1];
-			result[0] = 1;
-			return result;
-		}
-
-		return digits;
+		return right;
 	}
 
 	public static void main(String[] args) {
-
-		int[] digits = { 1, 2, 3 };
-		int[] result = plusOne(digits);
-		System.out.println(Arrays.toString(result));
+        int n = 5;
+        int result = arrangeCoins(n);
+        System.out.println(result);
 	}
 
 }

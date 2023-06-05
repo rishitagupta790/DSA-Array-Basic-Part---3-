@@ -1,42 +1,38 @@
 package com.in.P01;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Array_01 {
-	public static int threeSumClosest(int[] nums, int target) {
-		Arrays.sort(nums);
-		int closestSum = nums[0] + nums[1] + nums[2];
+	public static List<Integer> findCommonElements(int[] arr1, int[] arr2, int[] arr3) {
+		List<Integer> result = new ArrayList<>();
 
-		for (int i = 0; i < nums.length - 2; i++) {
-			int left = i + 1;
-			int right = nums.length - 1;
+		int i = 0, j = 0, k = 0;
 
-			while (left < right) {
-				int sum = nums[i] + nums[left] + nums[right];
-				if (sum == target) {
-					return sum; // Found exact sum, return it
-				}
-
-				if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
-					closestSum = sum;
-				}
-
-				if (sum < target) {
-					left++;
-				} else {
-					right--;
-				}
+		while (i < arr1.length && j < arr2.length && k < arr3.length) {
+			if (arr1[i] == arr2[j] && arr2[j] == arr3[k]) {
+				result.add(arr1[i]);
+				i++;
+				j++;
+				k++;
+			} else if (arr1[i] < arr2[j]) {
+				i++;
+			} else if (arr2[j] < arr3[k]) {
+				j++;
+			} else {
+				k++;
 			}
 		}
 
-		return closestSum;
+		return result;
 	}
 
 	public static void main(String[] args) {
-		int[] nums = { -1, 2, 1, -4 };
-		int target = 1;
-		int closestSum = threeSumClosest(nums, target);
-		System.out.println("Closest sum: " + closestSum);
+		   int[] arr1 = {1, 2, 3, 4, 5};
+	        int[] arr2 = {1, 2, 5, 7, 9};
+	        int[] arr3 = {1, 3, 4, 5, 8};
+	        List<Integer> result = findCommonElements(arr1, arr2, arr3);
+	        System.out.println(result);
 	}
 
 }

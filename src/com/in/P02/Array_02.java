@@ -1,65 +1,49 @@
 package com.in.P02;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Array_02 {
+	public static List<List<Integer>> findDisjointElements(int[] nums1, int[] nums2) {
+	        Set<Integer> set1 = new HashSet<>();
+	        Set<Integer> set2 = new HashSet<>();
 
-	public static List<List<Integer>> fourSum(int[] nums, int target) {
-		Arrays.sort(nums);
-		List<List<Integer>> result = new ArrayList<>();
+	        for (int num : nums1) {
+	            set1.add(num);
+	        }
 
-		for (int i = 0; i < nums.length - 3; i++) {
-			if (i > 0 && nums[i] == nums[i - 1]) {
-				continue; // Skip duplicates for the first element
-			}
+	        for (int num : nums2) {
+	            set2.add(num);
+	        }
 
-			for (int j = i + 1; j < nums.length - 2; j++) {
-				if (j > i + 1 && nums[j] == nums[j - 1]) {
-					continue; // Skip duplicates for the second element
-				}
+	        List<Integer> distinct1 = new ArrayList<>();
+	        List<Integer> distinct2 = new ArrayList<>();
 
-				int left = j + 1;
-				int right = nums.length - 1;
+	        for (int num : set1) {
+	            if (!set2.contains(num)) {
+	                distinct1.add(num);
+	            }
+	        }
 
-				while (left < right) {
-					int sum = nums[i] + nums[j] + nums[left] + nums[right];
-					if (sum == target) {
-						result.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+	        for (int num : set2) {
+	            if (!set1.contains(num)) {
+	                distinct2.add(num);
+	            }
+	        }
 
-						// Skip duplicates for the third element
-						while (left < right && nums[left] == nums[left + 1]) {
-							left++;
-						}
+	        List<List<Integer>> result = new ArrayList<>();
+	        result.add(distinct1);
+	        result.add(distinct2);
 
-						// Skip duplicates for the fourth element
-						while (left < right && nums[right] == nums[right - 1]) {
-							right--;
-						}
-
-						left++;
-						right--;
-					} else if (sum < target) {
-						left++; // Sum is smaller, move left pointer to increase sum
-					} else {
-						right--; // Sum is larger, move right pointer to decrease sum
-					}
-				}
-			}
-		}
-
-		return result;
-	}
-
+	        return result;
+	    }
 	public static void main(String[] args) {
-		int[] nums = { 1, 0, -1, 0, -2, 2 };
-		int target = 0;
-		List<List<Integer>> quadruplets = fourSum(nums, target);
-		System.out.println("Unique Quadruplets:");
-		for (List<Integer> quad : quadruplets) {
-			System.out.println(quad);
-		}
+		 int[] nums1 = {1, 2, 3};
+	        int[] nums2 = {2, 4, 6};
+	        List<List<Integer>> result = findDisjointElements(nums1, nums2);
+	        System.out.println(result);
 	}
 
 }

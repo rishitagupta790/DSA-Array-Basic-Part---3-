@@ -1,41 +1,23 @@
 package com.in.P07;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Array_07 {
-	public static List<String> findMissingRanges(int[] nums, int lower, int upper) {
-		List<String> result = new ArrayList<>();
+	public static int maxCount(int m, int n, int[][] ops) {
+        int minA = m;
+        int minB = n;
 
-		int next = lower;
+        for (int[] op : ops) {
+            minA = Math.min(minA, op[0]);
+            minB = Math.min(minB, op[1]);
+        }
 
-		for (int num : nums) {
-			if (num > next) {
-				result.add(formatRange(next, num - 1));
-			}
-			next = num + 1;
-		}
-
-		if (next <= upper) {
-			result.add(formatRange(next, upper));
-		}
-
-		return result;
-	}
-
-	private static String formatRange(int start, int end) {
-		if (start == end) {
-			return String.valueOf(start);
-		} else {
-			return start + "->" + end;
-		}
-	}
-
+        return minA * minB;
+    }
 	public static void main(String[] args) {
-		int[] nums = {0, 1, 3, 50, 75};
-        int lower = 0;
-        int upper = 99;
-        List<String> result = findMissingRanges(nums, lower, upper);
+		int m = 3;
+        int n = 3;
+        int[][] ops = {{2, 2}, {3, 3}};
+        int result = maxCount(m, n, ops);
         System.out.println(result);
 	}
 
